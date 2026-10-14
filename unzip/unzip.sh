@@ -1,4 +1,4 @@
-# sh common_utils/unzip/unzip.sh zip/ms-swift.zip ms-swift
+# sh common_utils/unzip/unzip.sh zip/ms-swift.zip sdk/ms-swift
 
 zip_file_path=$1
 tgt_folder=$2
