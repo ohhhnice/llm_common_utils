@@ -8,6 +8,12 @@ docker run vllm/vllm-openai
 
 # 语音docker
 docker pull qwenllm/qwen3-asr:latest
+
+# ttsdocker
+docker pull vllm/vllm-omni:v0.28.0
+
+# cosyvoice
+docker pull neosun/cosyvoice:latest
 ```
 
 ## 2. 运行 vllm
@@ -16,12 +22,17 @@ docker pull qwenllm/qwen3-asr:latest
 ```bash
 # 进入 docker
 docker run -it --rm --gpus all \
-    -v F:/LLM/model/Qwen/Qwen3-ASR-1.7B:/root/.cache/huggingface \
+    -v F:/LLM/model/FunAudioLLM/Fun-CosyVoice3-0.5B-2512:/root/.cache/huggingface \
+    -v F:/LLM/play_ground/data/wav:/vllm-workspace/data/ \
     -p 8000:8000 \
     --ipc=host \
     --entrypoint //bin/bash \
     --shm-size=10g \
-    vllm/vllm-openai
+    --name cosyvoice3 \
+    my-cosyvoice
+
+# 其他命令行如何进入同一个 docker
+docker exec -it cosyvoice3 bash
 ```
 
 ### 2.1.2 运行模型
@@ -38,6 +49,7 @@ vllm serve /root/.cache/huggingface \
     --quantization fp8
 
 # 如果是语音模型
+# 语音模型转换器 https://www.freeconvert.com/zh-CN/mp3-to-wav
 pip install vllm[audio]
 ```
 

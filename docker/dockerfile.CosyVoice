@@ -1,0 +1,12 @@
+# 使用 vLLM 官方镜像作为基础
+FROM vllm/vllm-openai:latest
+
+# 设置非交互式安装，避免安装过程中的提示
+ENV DEBIAN_FRONTEND=noninteractive
+
+# 安装 vllm-omni 和 s3tokenizer
+# 使用 --no-cache-dir 可以减小镜像体积
+RUN pip install --no-cache-dir "vllm-omni==0.28.0rc1" s3tokenizer
+
+# 构建docker
+# docker build -f dockerfile.CosyVoice -t my-cosyvoice:latest .
